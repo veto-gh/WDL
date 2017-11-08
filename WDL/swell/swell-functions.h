@@ -383,6 +383,10 @@ SWELL_API_DEFINE(bool, IsWindowVisible,(HWND hwnd))
 SWELL_API_DEFINE(bool, IsWindow, (HWND hwnd)) // very costly (compared to win32) -- enumerates all windows, searches for hwnd
 
 
+#ifndef SWELL_TARGET_OSX
+SWELL_API_DEFINE(bool, IsWindowEnabled,(HWND hwnd))
+#endif
+
 /*
 ** SetTimer/KillTimer():
 ** Notes:
