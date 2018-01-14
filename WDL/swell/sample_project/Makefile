@@ -19,10 +19,9 @@ RESFILES = sample_project.rc_mac_dlg sample_project.rc_mac_menu
 
 
 ### Compiler/Linker Flags
-CFLAGS = -DSWELL_TARGET_GDK_NO_CURSOR_HACK
 CFLAGS += -pipe -fvisibility=hidden -fno-math-errno -fPIC -DPIC -Wall -Wshadow -Wno-unused-function -Wno-multichar -Wno-unused-result -Werror -Wno-deprecated-declarations
 CFLAGS += -O0 -g -D_DEBUG
-LFLAGS = -lpthread -ldl
+LFLAGS = -lpthread -ldl -lX11 -lXi
 ### GDK
 CFLAGS += -DSWELL_TARGET_GDK=2 $(shell pkg-config gdk-2.0 --cflags)
 LFLAGS += $(shell pkg-config gdk-2.0 --libs)
@@ -38,7 +37,7 @@ CXXFLAGS = $(CFLAGS)
 default: $(APP)
 
 $(RESFILES): sample_project.rc
-	php $(WDL_PATH)/swell/mac_resgen.php $^
+	php $(WDL_PATH)swell/mac_resgen.php $^
 
 $(APP): $(RESFILES) $(OBJS)
 	$(CXX) -o $@ $(CFLAGS) $(OBJS) $(LFLAGS)
