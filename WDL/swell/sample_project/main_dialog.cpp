@@ -23,7 +23,7 @@ WDL_DLGRET MainDlgProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
          // this isnt just "PostQuitMessage", because the behaviors don't totally match -- i.e. 
          // it is relatively normal for the OS X app to get terminated without us calling this. Sooo, our exit handler 
          // code shouldn't rely on us having called this, etc...
-         SWELL_PostQuitMessage(hwndDlg); 
+//         SWELL_PostQuitMessage(hwndDlg); 
       #endif
 
     return 0;

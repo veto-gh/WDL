@@ -112,7 +112,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdPa
 }
 #else
 
-extern HMENU SWELL_app_stocksysmenu;
+//extern HMENU SWELL_app_stocksysmenu;
 extern "C" {
 INT_PTR SWELLAppMain(int msg, INT_PTR parm1, INT_PTR parm2)
 {
@@ -122,43 +122,43 @@ INT_PTR SWELLAppMain(int msg, INT_PTR parm1, INT_PTR parm2)
     break;
     case SWELLAPP_LOADED:
       
-      if (SWELL_app_stocksysmenu) // set the SWELL default menu, using the .nib'd menu as the default settings
-      {
-        HMENU menu = CreatePopupMenu();    
-        HMENU nm=SWELL_DuplicateMenu(SWELL_app_stocksysmenu);
-        if (nm)
-        {
-          MENUITEMINFO mi={sizeof(mi),MIIM_STATE|MIIM_SUBMENU|MIIM_TYPE,MFT_STRING,0,0,nm,NULL,NULL,0,"SampleApp"};
-          InsertMenuItem(menu,0,TRUE,&mi);           
-        }    
-        SWELL_SetDefaultModalWindowMenu(menu);
-      }      
-      
+//      if (SWELL_app_stocksysmenu) // set the SWELL default menu, using the .nib'd menu as the default settings
+//      {
+//        HMENU menu = CreatePopupMenu();    
+//        HMENU nm=SWELL_DuplicateMenu(SWELL_app_stocksysmenu);
+//        if (nm)
+//        {
+//          MENUITEMINFO mi={sizeof(mi),MIIM_STATE|MIIM_SUBMENU|MIIM_TYPE,MFT_STRING,0,0,nm,NULL,NULL,0,"SampleApp"};
+//          InsertMenuItem(menu,0,TRUE,&mi);           
+//        }    
+//        SWELL_SetDefaultModalWindowMenu(menu);
+//      }      
+//      
       {
         HMENU menu = LoadMenu(NULL,MAKEINTRESOURCE(IDR_MENU1));
-        {
-          HMENU sm=GetSubMenu(menu,0);
-          DeleteMenu(sm,ID_QUIT,MF_BYCOMMAND); // remove QUIT from our file menu, since it is in the system menu on OSX
-        
-          // remove any trailing separators
-          int a= GetMenuItemCount(sm);
-          while (a > 0 && GetMenuItemID(sm,a-1)==0) DeleteMenu(sm,--a,MF_BYPOSITION);
-        }
-        // delete help menu from Windows menu (since we only use it for "About", which is in the system menu
-        DeleteMenu(menu,GetMenuItemCount(menu)-1,MF_BYPOSITION);
-      
-        if (SWELL_app_stocksysmenu) // insert the stock system menu
-        {
-          HMENU nm=SWELL_DuplicateMenu(SWELL_app_stocksysmenu);
-          if (nm)
-          {
-            MENUITEMINFO mi={sizeof(mi),MIIM_STATE|MIIM_SUBMENU|MIIM_TYPE,MFT_STRING,0,0,nm,NULL,NULL,0,"SampleApp"};
-            InsertMenuItem(menu,0,TRUE,&mi);           
-          }
-        }  
-        
-        // if we want to set any default modifiers for items in the menus, we can use:
-        // SetMenuItemModifier(menu,commandID,MF_BYCOMMAND,'A',FCONTROL) etc.
+//        {
+//          HMENU sm=GetSubMenu(menu,0);
+//          DeleteMenu(sm,ID_QUIT,MF_BYCOMMAND); // remove QUIT from our file menu, since it is in the system menu on OSX
+//        
+//          // remove any trailing separators
+//          int a= GetMenuItemCount(sm);
+//          while (a > 0 && GetMenuItemID(sm,a-1)==0) DeleteMenu(sm,--a,MF_BYPOSITION);
+//        }
+//        // delete help menu from Windows menu (since we only use it for "About", which is in the system menu
+//        DeleteMenu(menu,GetMenuItemCount(menu)-1,MF_BYPOSITION);
+//      
+//        if (SWELL_app_stocksysmenu) // insert the stock system menu
+//        {
+//          HMENU nm=SWELL_DuplicateMenu(SWELL_app_stocksysmenu);
+//          if (nm)
+//          {
+//            MENUITEMINFO mi={sizeof(mi),MIIM_STATE|MIIM_SUBMENU|MIIM_TYPE,MFT_STRING,0,0,nm,NULL,NULL,0,"SampleApp"};
+//            InsertMenuItem(menu,0,TRUE,&mi);           
+//          }
+//        }  
+//        
+//        // if we want to set any default modifiers for items in the menus, we can use:
+//        // SetMenuItemModifier(menu,commandID,MF_BYCOMMAND,'A',FCONTROL) etc.
         
         
         HWND hwnd = CreateDialog(g_hInst,MAKEINTRESOURCE(IDD_DIALOG1),NULL,MainDlgProc);
