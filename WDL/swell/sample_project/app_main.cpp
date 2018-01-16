@@ -112,7 +112,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdPa
 }
 #else
 
-//extern HMENU SWELL_app_stocksysmenu;
+#ifdef SWELL_TARGET_OSX
+extern HMENU SWELL_app_stocksysmenu;
+#endif
 extern "C" {
 INT_PTR SWELLAppMain(int msg, INT_PTR parm1, INT_PTR parm2)
 {
