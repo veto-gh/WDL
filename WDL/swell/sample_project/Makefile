@@ -14,7 +14,7 @@ SWELL_OBJS = swell.o swell-ini.o swell-miscdlg-generic.o swell-wnd-generic.o \
 LICE_OBJS = lice.o  lice_arc.o lice_colorspace.o lice_line.o lice_text.o \
             lice_textnew.o lice_ico.o lice_bmp.o
 
-OBJS = swellappmain-generic.o app_main.o main_dialog.o $(SWELL_OBJS) $(LICE_OBJS)
+OBJS = app_main.o main_dialog.o $(SWELL_OBJS) $(LICE_OBJS)
 RESFILES = sample_project.rc_mac_dlg sample_project.rc_mac_menu
 
 

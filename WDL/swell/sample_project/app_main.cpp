@@ -110,11 +110,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdPa
 
   return 0;
 }
-#else
+#elif defined(SWELL_TARGET_OSX)
 
-#ifdef SWELL_TARGET_OSX
 extern HMENU SWELL_app_stocksysmenu;
-#endif
 extern "C" {
 INT_PTR SWELLAppMain(int msg, INT_PTR parm1, INT_PTR parm2)
 {
@@ -124,7 +122,6 @@ INT_PTR SWELLAppMain(int msg, INT_PTR parm1, INT_PTR parm2)
     break;
     case SWELLAPP_LOADED:
       
-#ifdef SWELL_TARGET_OSX
       if (SWELL_app_stocksysmenu) // set the SWELL default menu, using the .nib'd menu as the default settings
       {
         HMENU menu = CreatePopupMenu();    
@@ -136,10 +133,9 @@ INT_PTR SWELLAppMain(int msg, INT_PTR parm1, INT_PTR parm2)
         }    
         SWELL_SetDefaultModalWindowMenu(menu);
       }      
-#endif
+      
       {
         HMENU menu = LoadMenu(NULL,MAKEINTRESOURCE(IDR_MENU1));
-#ifdef SWELL_TARGET_OSX
         {
           HMENU sm=GetSubMenu(menu,0);
           DeleteMenu(sm,ID_QUIT,MF_BYCOMMAND); // remove QUIT from our file menu, since it is in the system menu on OSX
@@ -163,7 +159,7 @@ INT_PTR SWELLAppMain(int msg, INT_PTR parm1, INT_PTR parm2)
         
         // if we want to set any default modifiers for items in the menus, we can use:
         // SetMenuItemModifier(menu,commandID,MF_BYCOMMAND,'A',FCONTROL) etc.
-#endif
+        
         
         HWND hwnd = CreateDialog(g_hInst,MAKEINTRESOURCE(IDD_DIALOG1),NULL,MainDlgProc);
         
@@ -185,7 +181,34 @@ INT_PTR SWELLAppMain(int msg, INT_PTR parm1, INT_PTR parm2)
   return 0;
 }
 };
+#else
 
+int main(int argc, char **argv)
+{
+  SWELL_initargs(&argc,&argv);
+  SWELL_Internal_PostMessage_Init();
+  SWELL_ExtendedAPI("APPNAME",(void*)"SWELL test");
+//  SWELL_RegisterCustomControlCreator(ccontrolCreator);
+  //SWELL_ExtendedAPI("INIFILE",(void*)"path/to/ini/file.ini");
+  //SWELL_ExtendedAPI("FONTPANGRAM",(void*)"LICE test thingy lbah akbzfshauoh01384u1023");
+//  DialogBox(g_hInst, MAKEINTRESOURCE(IDD_DIALOG1), NULL, MainDlgProc);   // use this? creates modal window, sets up its own message loop
+  
+  HMENU menu = LoadMenu(NULL,MAKEINTRESOURCE(IDR_MENU1));
+  HWND hwnd = CreateDialog(g_hInst,MAKEINTRESOURCE(IDD_DIALOG1),NULL,MainDlgProc);
+  SetMenu(hwnd,menu);
+  while (1) {
+//    void SWELL_RunMessageLoop();
+    SWELL_RunMessageLoop();
+    Sleep(10);
+  }
+  
+  return 0;
+}
+
+INT_PTR SWELLAppMain(int msg, INT_PTR parm1, INT_PTR parm2)
+{
+  return 0;
+}
 #endif
 
 
