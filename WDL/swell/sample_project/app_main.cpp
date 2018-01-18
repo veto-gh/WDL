@@ -190,13 +190,15 @@ int main(int argc, char **argv)
   SWELL_ExtendedAPI("APPNAME",(void*)"SWELL test");
   
   HMENU menu = LoadMenu(NULL,MAKEINTRESOURCE(IDR_MENU1));
-  HWND hwnd = CreateDialog(g_hInst,MAKEINTRESOURCE(IDD_DIALOG1),NULL,MainDlgProc);
-  SetMenu(hwnd,menu);
+  CreateDialog(g_hInst,MAKEINTRESOURCE(IDD_DIALOG1),NULL,MainDlgProc);
+  SetMenu(g_hwnd,menu);
   
-  while (!hwnd->m_hashaddestroy) {
+  while (!g_hwnd->m_hashaddestroy) {
     SWELL_RunMessageLoop();
     Sleep(10);
   }
+  
+  if (g_hwnd) DestroyWindow(g_hwnd);
   return 0;
 }
 
