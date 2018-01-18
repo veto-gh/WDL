@@ -11,6 +11,10 @@
 
 #include "../../wdltypes.h"
 
+#if !defined(_WIN32) and !defined(SWELL_TARGET_OSX)
+#include "../swell-internal.h"
+#endif
+
 extern WDL_DLGRET MainDlgProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
 extern HINSTANCE g_hInst; 

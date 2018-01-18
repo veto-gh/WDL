@@ -188,20 +188,15 @@ int main(int argc, char **argv)
   SWELL_initargs(&argc,&argv);
   SWELL_Internal_PostMessage_Init();
   SWELL_ExtendedAPI("APPNAME",(void*)"SWELL test");
-//  SWELL_RegisterCustomControlCreator(ccontrolCreator);
-  //SWELL_ExtendedAPI("INIFILE",(void*)"path/to/ini/file.ini");
-  //SWELL_ExtendedAPI("FONTPANGRAM",(void*)"LICE test thingy lbah akbzfshauoh01384u1023");
-//  DialogBox(g_hInst, MAKEINTRESOURCE(IDD_DIALOG1), NULL, MainDlgProc);   // use this? creates modal window, sets up its own message loop
   
   HMENU menu = LoadMenu(NULL,MAKEINTRESOURCE(IDR_MENU1));
   HWND hwnd = CreateDialog(g_hInst,MAKEINTRESOURCE(IDD_DIALOG1),NULL,MainDlgProc);
   SetMenu(hwnd,menu);
-  while (1) {
-//    void SWELL_RunMessageLoop();
+  
+  while (!hwnd->m_hashaddestroy) {
     SWELL_RunMessageLoop();
     Sleep(10);
   }
-  
   return 0;
 }
 
